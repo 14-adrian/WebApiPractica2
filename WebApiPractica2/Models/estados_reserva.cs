@@ -2,12 +2,10 @@
 
 namespace WebApiPractica2.Models
 {
-    public class tipoEquipo
+    public class estados_reserva
     {
         [Key]
-        public int tipoEquipoId { get; set; }
-
-        public string? descripcion { get; set; }
+        public int estado_res_id { get; set; }
 
         public string? estado { get; set; }
     }

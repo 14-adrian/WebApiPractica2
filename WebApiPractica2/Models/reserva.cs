@@ -5,22 +5,22 @@ namespace WebApiPractica2.Models
     public class reserva
     {
         [Key]
-        public int reservaId { get; set; }
+        public int reserva_id { get; set; }
 
-        public int equipoId { get; set; }
+        public int equipo_id { get; set; }
 
-        public int usuarioId { get; set; }
+        public int usuario_id { get; set; }
 
-        public  string? fechaSalida { get; set; }
+        public  string? fecha_salida { get; set; }
 
-        public string? horaSalida { get; set; }
+        public string? hora_salida { get; set; }
 
-        public int tiempoReserva { get; set; }
+        public int tiempo_reserva { get; set; }
 
-        public int estadoResId { get; set; }
+        public int estado_reserva_id { get; set; }
 
-        public string? fechaRetorno { get; set; }
+        public string? fecha_retorno { get; set; }
 
-        public string? horaRetorno { get; set; }
+        public string? hora_retorno { get; set; }
     }
 }

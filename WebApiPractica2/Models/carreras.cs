@@ -5,10 +5,10 @@ namespace WebApiPractica2.Models
     public class carreras
     {
         [Key]
-        public int carreraId { get; set; }
+        public int carrera_id { get; set; }
 
-        public string? nombreCarrera { get; set; }
+        public string? nombre_carrera { get; set; }
 
-        public int facultadId { get; set; }
+        public int facultad_id { get; set; }
     }
 }

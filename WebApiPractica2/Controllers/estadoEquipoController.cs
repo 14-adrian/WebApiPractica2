@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using WebApiPractica2.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query.Internal;
 
 namespace WebApiPractica2.Controllers
 {
@@ -37,31 +38,16 @@ namespace WebApiPractica2.Controllers
 
         public IActionResult Get(int id)
         {
-            equipos? equipo = (from e in _equiposContexto.equipos
-                               where e.id_equipos == id
+            estados_equipo? estadosEq = (from e in _equiposContexto.estados_equipo
+                               where e.id_estados_equipo == id
                                select e).FirstOrDefault();
 
-            if (equipo == null)
+            if (estadosEq == null)
             {
                 return NotFound();
             }
-            return Ok(equipo);
+            return Ok(estadosEq);
 
-        }
-        [HttpGet]
-        [Route("Find/{filtro}")]
-
-        public IActionResult FindbyDescription(String filtro)
-        {
-            equipos? equipo = (from e in _equiposContexto.equipos
-                               where e.descripcion.Contains(filtro)
-                               select e).FirstOrDefault();
-
-            if (equipo == null)
-            {
-                return NotFound();
-            }
-            return Ok(equipo);
         }
 
         [HttpPost]
@@ -87,22 +73,17 @@ namespace WebApiPractica2.Controllers
         [HttpPut]
         [Route("actualizar/{id}")]
 
-        public IActionResult ActualizarEquipo(int id, [FromBody] equipos equipoModificar)
+        public IActionResult ActualizarEstadoEquipo(int id, [FromBody] estados_equipo equipoModificar)
         {
-            equipos? equiposActual = (from e in _equiposContexto.equipos
-                                      where e.id_equipos == id
+            estados_equipo? equiposActual = (from e in _equiposContexto.estados_equipo
+                                      where e.id_estados_equipo == id
                                       select e).FirstOrDefault();
             if (equiposActual == null)
             {
                 return NotFound(id);
             }
-
-            equiposActual.nombre = equipoModificar.nombre;
             equiposActual.descripcion = equipoModificar.descripcion;
-            equiposActual.marca_id = equipoModificar.marca_id;
-            equiposActual.tipo_equipo_id = equipoModificar.tipo_equipo_id;
-            equiposActual.anio_compra = equipoModificar.anio_compra;
-            equiposActual.costo = equipoModificar.costo;
+            equiposActual.estado = equipoModificar.estado;
 
             _equiposContexto.Entry(equiposActual).State = EntityState.Modified;
             _equiposContexto.SaveChanges();
@@ -112,18 +93,18 @@ namespace WebApiPractica2.Controllers
         [HttpDelete]
         [Route("eliminar/{id}")]
 
-        public IActionResult EliminarEquipo(int id)
+        public IActionResult EliminarEstadoEquipo(int id)
         {
 
-            equipos? equipo = (from e in _equiposContexto.equipos
-                               where e.id_equipos == id
+            estados_equipo? equipo = (from e in _equiposContexto.estados_equipo
+                               where e.id_estados_equipo == id
                                select e).FirstOrDefault();
 
             if (equipo == null)
                 return NotFound();
 
-            _equiposContexto.equipos.Attach(equipo);
-            _equiposContexto.equipos.Remove(equipo);
+            _equiposContexto.estados_equipo.Attach(equipo);
+            _equiposContexto.estados_equipo.Remove(equipo);
             _equiposContexto.SaveChanges();
 
             return Ok(equipo);
