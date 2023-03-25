@@ -22,23 +22,26 @@ namespace WebApiPractica.Controllers
 
         public IActionResult Get()
         {
-            var listadoMarcas = (from n in _equiposContexto.marcas
-                                 select n).ToList();
+            //var listadoMarcas = (from n in _equiposContexto.marcas
+            //                     select n).ToList();
 
 
-            var listadoEquipo = (from e in _equiposContexto.equipos
-                                 join m in listadoMarcas on e.marca_id equals m.id_marcas
-                                 join te in _equiposContexto.tipoEquipo on e.tipo_equipo_id equals te.tipoEquipoId
-                                 where m.estados == "D"
-                                 select new
-                                 {
-                                     e.id_equipos,
-                                     e.nombre,
-                                     e.descripcion,
-                                     e.tipo_equipo_id,
-                                     e.marca_id,
-                                     m.nombre_marca
-                                 }).ToList();
+            //var listadoEquipo = (from e in _equiposContexto.equipos
+            //                     join m in listadoMarcas on e.marca_id equals m.id_marcas
+            //                     join te in _equiposContexto.tipoEquipo on e.tipo_equipo_id equals te.tipoEquipoId
+            //                     where m.estados == "D"
+            //                     select new
+            //                     {
+            //                         e.id_equipos,
+            //                         e.nombre,
+            //                         e.descripcion,
+            //                         e.tipo_equipo_id,
+            //                         e.marca_id,
+            //                         m.nombre_marca
+            //                     }).ToList();
+
+            List<equipos> listadoEquipo = (from e in _equiposContexto.equipos
+                                 select e).ToList();
 
             if (listadoEquipo == null)
             {
@@ -63,21 +66,6 @@ namespace WebApiPractica.Controllers
             }
             return Ok(equipo);
 
-        }
-        [HttpGet]
-        [Route("Find/{filtro}")]
-
-        public IActionResult FindbyDescription(String filtro)
-        {
-            equipos? equipo = (from e in _equiposContexto.equipos
-                               where e.descripcion.Contains(filtro)
-                               select e).FirstOrDefault();
-
-            if (equipo == null)
-            {
-                return NotFound();
-            }
-            return Ok(equipo);
         }
 
         [HttpPost]
